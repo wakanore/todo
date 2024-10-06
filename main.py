@@ -31,19 +31,17 @@ postgres_delete_query = """ DELETE FROM tasks WHERE id = '{id}'"""
 app = FastAPI(title="Trading App")
 
 class STaskAdd(BaseModel):
+    id: int
     name: str
     description: Optional[str] = None
 
-class STask(STaskAdd):
-    id: int
 
 tasks = []
 
 @app.post("/tasks")
-async def add_task(
-        task:Annotated[STaskAdd, Depends()],
-):
+async def add_task(task:Annotated[STaskAdd, Depends()],):
+    task_add = (task.id, task.name, task.description)
+    cursor.execute(postgres_insert_query, task_add)
+    connection.commit()
     tasks.append(task)
     return {"ok":True}
-
-
