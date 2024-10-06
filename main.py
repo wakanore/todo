@@ -24,7 +24,6 @@ postgres_insert_query = """ INSERT INTO tasks (id, name, description)
 
 postgres_select_query = """ SELECT * FROM tasks"""
 
-postgres_delete_query = """ DELETE FROM tasks WHERE id = '{id}'"""
 
 
 
@@ -51,3 +50,11 @@ async def get_task():
     cursor.execute(postgres_select_query)
     tasks = cursor.fetchall()
     return {"ok":True, "task": tasks}
+
+@app.delete("/get_task")
+async def delete_task(id):
+    postgres_delete_query = f"DELETE FROM tasks WHERE id = '{id}'"
+    cursor.execute(postgres_delete_query)
+    connection.commit()
+    return {"ok":True, "id": id}
+
