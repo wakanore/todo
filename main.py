@@ -38,10 +38,16 @@ class STaskAdd(BaseModel):
 
 tasks = []
 
-@app.post("/tasks")
+@app.post("/add_task")
 async def add_task(task:Annotated[STaskAdd, Depends()],):
     task_add = (task.id, task.name, task.description)
     cursor.execute(postgres_insert_query, task_add)
     connection.commit()
     tasks.append(task)
     return {"ok":True}
+
+@app.get("/get_task")
+async def get_task():
+    cursor.execute(postgres_select_query)
+    tasks = cursor.fetchall()
+    return {"ok":True, "task": tasks}
