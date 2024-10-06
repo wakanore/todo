@@ -27,7 +27,7 @@ postgres_select_query = """ SELECT * FROM tasks"""
 
 
 
-app = FastAPI(title="Trading App")
+app = FastAPI(title="TO DO LIST")
 
 class STaskAdd(BaseModel):
     id: int
