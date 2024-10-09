@@ -11,9 +11,9 @@ from contextlib import asynccontextmanager
 
 
 connection = psycopg2.connect(
-            database="fastapi",  # эта БД уже должна быть
+            database="fastapi", 
             user='postgres',
-            password='5678',
+            password='password',
             host='127.0.0.1',
             port='5434',
         )
