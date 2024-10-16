@@ -51,7 +51,7 @@ async def get_task():
     tasks = cursor.fetchall()
     return {"ok":True, "task": tasks}
 
-@app.delete("/get_task")
+@app.delete("delete_task")
 async def delete_task(id):
     postgres_delete_query = f"DELETE FROM tasks WHERE id = '{id}'"
     cursor.execute(postgres_delete_query)
